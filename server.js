@@ -5,9 +5,13 @@ const path = require('path');
 const port = 3000;
 
 const server = http.createServer((req, res) => {
-  path.join(__dirname, req.url === '/' ? "index.html" : "req.url")
+  const filePath = path.join(
+  __dirname, 
+  req.url === '/' ? "index.html" : req.url
+  );
+  console.log(filePath);
 
-  const extName = string(path.extname(filePath)).tolowerCase()
+  const extName = String(path.extname(filePath)).toLowerCase();
 
   const mimeTypes = {
     '.html': 'text/html',
@@ -21,7 +25,7 @@ const server = http.createServer((req, res) => {
  fs.readFile(filePath, (err, content) => {
   if(err) {
     if(err.code == "ENOENT"){
-      res.writeHead
+      res.writeHead("404: File Not Found");
       (404, {'Content-Type': 'text/plain'});
       res.end("400: File Not Found");
     }
